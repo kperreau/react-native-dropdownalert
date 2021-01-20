@@ -342,9 +342,12 @@ export default class DropdownAlert extends Component {
       if (action === ACTION.cancel) {
         onCancel(this.alertData);
       } else {
-        if (action === ACTION.tap) {
-          onTap(this.alertData);
-        }
+          const {payload} = this.alertData;
+          if (payload?.onTap) {
+            payload?.onTap(this.alertData);
+          } else {
+            onTap(this.alertData);
+          }
         onClose(this.alertData);
       }
       this.setState({isOpen: false, topValue: 0, height: 0});
